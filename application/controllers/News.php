@@ -116,13 +116,11 @@ class News extends RestController
         }
     }
 
-    public function tag_get()
+    public function similar_get()
     {
-        //Cek ID dari Inputan Kanal
-        $cat = urldecode($this->uri->segment(3));
-        $cat_id = $this->news_m->categoryTitle($cat)->row("catnews_id");
-
         //Atur Start dan Limit
+        $keyword = $this->get('keyword');
+        $category = $this->get('category');
         $start = $this->get('start');
         $limit = $this->get('limit');
 
@@ -131,17 +129,44 @@ class News extends RestController
         }
 
         //Dapatkan data dari DB
-        $data = $this->news_m->getBy("catnews_id", $cat_id, $start, $limit);
+        $data = $this->news_m->getSimilar($keyword, $category, $start, $limit);
 
-        if ($data) {
+        if ($data != null) {
             $this->response($data, 200);
         } else {
             $this->response([
                 'status' => false,
                 'message' => 'News Category ID Not Found'
-            ], 404);
+            ], 200);
         }
     }
+
+    // public function tag_get()
+    // {
+    //     //Cek ID dari Inputan Kanal
+    //     $cat = urldecode($this->uri->segment(3));
+    //     $cat_id = $this->news_m->categoryTitle($cat)->row("catnews_id");
+
+    //     //Atur Start dan Limit
+    //     $start = $this->get('start');
+    //     $limit = $this->get('limit');
+
+    //     if ($limit == null) {
+    //         $limit = 7;
+    //     }
+
+    //     //Dapatkan data dari DB
+    //     $data = $this->news_m->getBy("catnews_id", $cat_id, $start, $limit);
+
+    //     if ($data) {
+    //         $this->response($data, 200);
+    //     } else {
+    //         $this->response([
+    //             'status' => false,
+    //             'message' => 'News Category ID Not Found'
+    //         ], 404);
+    //     }
+    // }
 
     public function headline_get()
     {
