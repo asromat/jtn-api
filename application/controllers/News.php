@@ -50,6 +50,31 @@ class News extends RestController
         }
     }
 
+    // Mendapatkan data dari lokasi daerah
+    // tabel si2_id
+    public function location_get()
+    {
+        $start = $this->get('start');
+        $limit = $this->get('limit');
+        $location = $this->get('location');
+
+        if ($limit == null) {
+            $limit = 7;
+        }
+        // if ($start == null) { $start = 1; }
+
+        $data = $this->news_m->getByLocation($start, $limit,$location);
+
+        if ($data) {
+            $this->response($data, 200);
+        } else {
+            $this->response([
+                'status' => false,
+                'message' => 'No news were found'
+            ], 404);
+        }
+    }
+
     public function detail_get()
     {
         $id = $this->get('id');
