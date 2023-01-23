@@ -69,6 +69,18 @@ class News_m extends CI_Model {
 		return $query->result_array();
     }
 
+	public function getTag($keyword = null, $start = null, $limit = null)
+	{
+		$this->db->select('hl_id,news_subtitle,focnews_id,news_wm,news_id,catnews_id,news_title,news_headline,news_title,news_caption,news_description, news_content,news_image_new,news_writer,tags_id,news_datepub,news_view');
+        $this->db->from('db_news');
+        $this->db->order_by('news_datepub','RANDOM');
+		$this->db->limit($limit, $start);
+        $this->db->like('news_datepub',date("Y-m"));
+		$this->db->like("news_title",$keyword,"both");
+		$query = $this->db->get();
+		return $query->result_array();
+    }
+
     public function categoryTitle($cat = null)
 	{
 		$this->db->select('catnews_id,catnews_order,catnews_title,catnews_slug');
