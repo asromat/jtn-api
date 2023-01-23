@@ -181,6 +181,8 @@ class News extends RestController
 
         //Dapatkan data dari DB
         $data = $this->news_m->getTag($keyword, $start, $limit);
+        // var_dump($keyword);
+        // die();
 
         if ($data != null) {
             $this->response($data, 200);

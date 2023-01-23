@@ -75,8 +75,8 @@ class News_m extends CI_Model {
         $this->db->from('db_news');
         $this->db->order_by('news_datepub','RANDOM');
 		$this->db->limit($limit, $start);
-        $this->db->like('news_datepub',date("Y-m"));
-		$this->db->like("news_title",$keyword,"both");
+        // $this->db->like('news_datepub',date("Y-m"));
+		$this->db->like("news_title",$keyword,"match");
 		$query = $this->db->get();
 		return $query->result_array();
     }
