@@ -171,7 +171,7 @@ class News extends RestController
     public function tag_get()
     {
         //Atur Start dan Limit
-        $keyword = $this->get('keyword');
+        $keyword = str_replace(["%20","-"],[" "," "],$this->get('keyword'));
         $start = $this->get('start');
         $limit = $this->get('limit');
 
