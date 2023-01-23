@@ -168,6 +168,30 @@ class News extends RestController
         }
     }
 
+    public function tag_get()
+    {
+        //Atur Start dan Limit
+        $keyword = $this->get('keyword');
+        $start = $this->get('start');
+        $limit = $this->get('limit');
+
+        if ($limit == null) {
+            $limit = 7;
+        }
+
+        //Dapatkan data dari DB
+        $data = $this->news_m->getTag($keyword, $start, $limit);
+
+        if ($data != null) {
+            $this->response($data, 200);
+        } else {
+            $this->response([
+                'status' => false,
+                'message' => 'News Tag Not Found'
+            ], 200);
+        }
+    }
+
     public function headline_get()
     {
         $start = $this->get('start');
