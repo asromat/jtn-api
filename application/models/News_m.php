@@ -88,6 +88,7 @@ class News_m extends CI_Model {
 		$this->db->limit($limit, $start);
         // $this->db->like('news_datepub',date("Y-m"));
 		$this->db->like("news_title",$keyword,"match");
+		$this->db->or_like("news_tags",$keyword,"match");
 		$query = $this->db->get();
 		return $query->result_array();
     }
