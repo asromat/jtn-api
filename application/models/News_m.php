@@ -31,6 +31,7 @@ class News_m extends CI_Model {
         $this->db->order_by('news_datepub','DESC');
 		$this->db->limit($limit, $start);
 		$this->db->where($kolom,$value);
+		$this->db->where("news_datepub <",date('Y-m-d',strtotime(date('Y-m-d') . "+1 days")));
 		$query = $this->db->get();
 		return $query->result_array();
     }
