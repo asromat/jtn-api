@@ -31,7 +31,7 @@ class News_m extends CI_Model {
         $this->db->order_by('news_datepub','DESC');
 		$this->db->limit($limit, $start);
 		$this->db->where($kolom,$value);
-		$this->db->where("news_datepub <",date('Y-m-d H:i',strtotime(date('Y-m-d H:i'))));
+		$this->db->where("news_datepub <",date('Y-m-d H:i:s',strtotime(date('Y-m-d H:i:s'))));
 		$query = $this->db->get();
 		return $query->result_array();
     }
@@ -55,7 +55,7 @@ class News_m extends CI_Model {
         $this->db->order_by('news_datepub','DESC');
 		$this->db->limit($limit, $start);
 		$this->db->like('si2_id',$location);
-		$this->db->where("news_datepub <",date('Y-m-d H:i',strtotime(date('Y-m-d H:i'))));
+		$this->db->where("news_datepub <",date('Y-m-d H:i:s',strtotime(date('Y-m-d H:i:s'))));
 		$query = $this->db->get();
 		return $query->result_array();
     }
